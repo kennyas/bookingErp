@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "reportapi.fullname" . }}
+  labels:
+    app: {{ template "reportapi.name" . }}
+    chart: {{ template "reportapi.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "reportapi.name" . }}
+    release: {{ .Release.Name }}

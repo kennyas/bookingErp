@@ -1,0 +1,51 @@
+﻿{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "8070"
+        }
+      ],
+      "UpstreamPathTemplate": "/usermanagement-api/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "8050"
+        }
+      ],
+      "UpstreamPathTemplate": "/booking-api/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "9000"
+        }
+      ],
+      "UpstreamPathTemplate": "/wallet-api/{catchAll}"
+    },
+    {
+      "DownstreamPathTemplate": "/{catchAll}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": "2090"
+        }
+      ],
+      "UpstreamPathTemplate": "/reports-api/{catchAll}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:8010"
+  }
+}

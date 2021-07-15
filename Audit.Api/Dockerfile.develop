@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+ARG BUILD_CONFIGURATION=Debug
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_URLS=http://+:80
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+EXPOSE 80
+
+WORKDIR /src
+COPY ["Audit.Api/Audit.Api.csproj", "Audit.Api/"]
+COPY ["Audit.Core/Audit.Core.csproj", "Audit.Core/"]
+COPY ["Tornado.Shared/Tornado.Shared.csproj", "Tornado.Shared/"]
+
+RUN dotnet restore "Audit.Api/Audit.Api.csproj"
+COPY . .
+WORKDIR "/src/Audit.Api"
+RUN dotnet build --no-restore "Audit.Api.csproj" -c $BUILD_CONFIGURATION
+
+RUN echo "exec dotnet run --no-build --no-launch-profile -c $BUILD_CONFIGURATION --" > /entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]

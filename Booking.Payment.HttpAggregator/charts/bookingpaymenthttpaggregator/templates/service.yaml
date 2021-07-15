@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "bookingpaymenthttpaggregator.fullname" . }}
+  labels:
+    app: {{ template "bookingpaymenthttpaggregator.name" . }}
+    chart: {{ template "bookingpaymenthttpaggregator.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "bookingpaymenthttpaggregator.name" . }}
+    release: {{ .Release.Name }}

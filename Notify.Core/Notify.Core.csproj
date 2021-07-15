@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Email\**" />
+    <Compile Remove="Sms\**" />
+    <EmbeddedResource Remove="Email\**" />
+    <EmbeddedResource Remove="Sms\**" />
+    <None Remove="Email\**" />
+    <None Remove="Sms\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Event\EventHandler\UserEmailRegisteredIntegrationEventHandler.cs" />
+    <Compile Remove="Event\EventHandler\UserSmsRegisteredIntegrationHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Tornado.Shared\Tornado.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

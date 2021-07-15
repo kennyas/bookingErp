@@ -1,0 +1,32 @@
+﻿apiVersion: extensions/v1beta1
+kind: Ingress
+metadata: 
+  name: danfodeployment
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+  - http:
+     paths:
+     - backend:
+         serviceName: walletapi
+         servicePort: 80
+       path:  /walletapi(/|$)(.*)
+     - backend:
+         serviceName: notifyapi
+         servicePort: 80
+       path: /notifyapi(/|$)(.*)
+     - backend:
+         serviceName: usermanagementapi
+         servicePort: 80
+       path: /usermanagementapi(/|$)(.*)
+     - backend:
+         serviceName: bookingapi
+         servicePort: 80
+       path: /bookingapi(/|$)(.*)
+     - backend:
+         serviceName: bookingpaymenthttpaggregator
+         servicePort: 80
+       path: /bookingpaymenthttpaggregator(/|$)(.*)

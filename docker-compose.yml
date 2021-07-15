@@ -1,0 +1,29 @@
+version: '3.4'
+
+services:
+  usermanagement.api:
+    image: ${DOCKER_REGISTRY-}usermanagementapi
+    build:
+      context: .
+      dockerfile: UserManagement.Api/Dockerfile
+  wallet.api:
+    image: ${DOCKER_REGISTRY-}walletapi
+    build:
+      context: .
+      dockerfile: Wallet.Api/Dockerfile
+    depends_on: 
+      - usermanagement.api
+  booking.api:
+    image: ${DOCKER_REGISTRY-}bookingapi
+    build:
+      context: .
+      dockerfile: Booking.Api/Dockerfile
+    depends_on: 
+      - usermanagement.api
+  notify.api:
+    image: ${DOCKER_REGISTRY-}notifyapi
+    build:
+       context: .
+       dockerfile: Notify.Api/Dockerfile
+    depends_on: 
+      - usermanagement.api

@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+ARG BUILD_CONFIGURATION=Debug
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV ASPNETCORE_URLS=http://+:80
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+EXPOSE 80
+
+WORKDIR /src
+COPY ["Tornado.Shared/Tornado.Shared.csproj", "Tornado.Shared/"]
+COPY ["UserManagement.Api/UserManagement.Api.csproj", "UserManagement.Api/"]
+COPY ["UserManagement.Core/UserManagement.Core.csproj", "UserManagement.Core/"]
+
+RUN dotnet restore "UserManagement.Api/UserManagement.Api.csproj"
+COPY . .
+WORKDIR "/src/UserManagement.Api"
+RUN dotnet build --no-restore "UserManagement.Api.csproj" -c $BUILD_CONFIGURATION
+
+RUN echo "exec dotnet run --no-build --no-launch-profile -c $BUILD_CONFIGURATION --" > /entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
